@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Point - Your Style, Our Passion</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-pink: #ff4d8d;
+            --dark-pink: #e63973;
+            --light-pink: #ffedf3;
+            --black: #222222;
+            --white: #ffffff;
+            --gray: #f5f5f5;
+            --dark-gray: #777777;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--white);
+            color: var(--black);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        .logo h1 {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--primary-pink);
+        }
+        
+        .logo span {
+            color: var(--black);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--black);
+            font-weight: 600;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary-pink);
+        }
+        
+        .nav-icons {
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-icons a {
+            margin-left: 20px;
+            color: var(--black);
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+        
+        .nav-icons a:hover {
+            color: var(--primary-pink);
+        }
+        
+        .mobile-menu {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        /* Hero Banner */
+        .hero-banner {
+            background: linear-gradient(135deg, var(--primary-pink), var(--dark-pink));
+            color: var(--white);
+            padding: 80px 0;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .hero-content h2 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+        
+        .hero-content p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--white);
+            color: var(--primary-pink);
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: var(--black);
+            color: var(--white);
+        }
+        
+        .btn-pink {
+            background-color: var(--primary-pink);
+            color: var(--white);
+        }
+        
+        .btn-pink:hover {
+            background-color: var(--dark-pink);
+        }
+        
+        .btn-small {
+            padding: 8px 15px;
+            font-size: 14px;
+        }
+        
+        /* Section Styles */
+        section {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .section-title h2 {
+            font-size: 36px;
+            color: var(--black);
+            margin-bottom: 10px;
+        }
+        
+        .section-title p {
+            color: var(--dark-gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .product-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .product-img {
+            height: 250px;
+            background-color: var(--light-pink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .product-card:hover .product-img img {
+            transform: scale(1.1);
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-info h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .product-price {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary-pink);
+            margin-bottom: 15px;
+        }
+        
+        .product-options {
+            display: flex;
+            margin-bottom: 15px;
+        }
+        
+        .size-option, .color-option {
+            margin-right: 10px;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        .size-option.active, .color-option.active {
+            background-color: var(--primary-pink);
+            color: var(--white);
+            border-color: var(--primary-pink);
+        }
+        
+        .product-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .product-actions .btn {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            font-size: 14px;
+        }
+        
+        /* Admin Panel Styles */
+        .admin-panel {
+            background-color: var(--black);
+            color: var(--white);
+            padding: 20px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1001;
+            display: none;
+            overflow-y: auto;
+        }
+        
+        .admin-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary-pink);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1002;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            font-size: 24px;
+        }
+        
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .admin-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .admin-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .admin-tab.active {
+            border-bottom: 2px solid var(--primary-pink);
+            color: var(--primary-pink);
+        }
+        
+        .admin-content {
+            display: none;
+        }
+        
+        .admin-content.active {
+            display: block;
+        }
+        
+        .admin-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .admin-form input, .admin-form textarea, .admin-form select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        .admin-form textarea {
+            grid-column: 1 / -1;
+        }
+        
+        .admin-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            grid-column: 1 / -1;
+        }
+        
+        .admin-products-list {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 5px;
+            padding: 10px;
+        }
+        
+        .admin-product-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .admin-product-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .mobile-menu {
+                display: block;
+            }
+            
+            nav {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 80%;
+                height: calc(100vh - 70px);
+                background-color: var(--white);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                transition: left 0.3s;
+                z-index: 999;
+            }
+            
+            nav.active {
+                left: 0;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                padding: 30px;
+            }
+            
+            nav ul li {
+                margin: 0 0 20px 0;
+            }
+            
+            .hero-content h2 {
+                font-size: 28px;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .admin-form {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Admin Toggle Button -->
+    <div class="admin-toggle" id="adminToggle">
+        <i class="fas fa-cog"></i>
+    </div>
+    
+    <!-- Admin Panel -->
+    <div class="admin-panel" id="adminPanel">
+        <div class="container">
+            <div class="admin-header">
+                <h2>Fashion Point Admin Panel</h2>
+                <button class="btn btn-pink" id="closeAdmin">Close Admin</button>
+            </div>
+            
+            <div class="admin-tabs">
+                <div class="admin-tab active" data-tab="products">Manage Products</div>
+                <div class="admin-tab" data-tab="store">Store Settings</div>
+                <div class="admin-tab" data-tab="contact">Contact Details</div>
+            </div>
+            
+            <!-- Products Tab -->
+            <div class="admin-content active" id="products-tab">
+                <h3>Add New Product</h3>
+                <div class="admin-form">
+                    <input type="text" id="productName" placeholder="Product Name">
+                    <input type="number" id="productPrice" placeholder="Price">
+                    <input type="text" id="productImage" placeholder="Image URL">
+                    <select id="productCategory">
+                        <option value="">Select Category</option>
+                        <option value="dresses">Dresses</option>
+                        <option value="tops">Tops</option>
+                        <option value="bottoms">Bottoms</option>
+                        <option value="outerwear">Outerwear</option>
+                    </select>
+                    <textarea id="productDescription" placeholder="Product Description"></textarea>
+                    <div class="admin-buttons">
+                        <button class="btn btn-pink" id="addProduct">Add Product</button>
+                        <button class="btn" id="updateProduct" style="display: none;">Update Product</button>
+                        <button class="btn" id="cancelEdit">Cancel</button>
+                    </div>
+                </div>
+                
+                <h3 style="margin-top: 30px;">Current Products</h3>
+                <div class="admin-products-list" id="adminProductsList">
+                    <!-- Products will be listed here -->
+                </div>
+            </div>
+            
+            <!-- Store Settings Tab -->
+            <div class="admin-content" id="store-tab">
+                <h3>Store Settings</h3>
+                <div class="admin-form">
+                    <input type="text" id="storeName" placeholder="Store Name" value="Fashion Point">
+                    <input type="text" id="storeTagline" placeholder="Store Tagline" value="Your Style, Our Passion">
+                    <textarea id="storeDescription" placeholder="Store Description">Discover the latest fashion trends and express your unique style with Fashion Point's exclusive collection.</textarea>
+                    <div class="admin-buttons">
+                        <button class="btn btn-pink" id="saveStoreSettings">Save Store Settings</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contact Details Tab -->
+            <div class="admin-content" id="contact-tab">
+                <h3>Contact Details</h3>
+                <div class="admin-form">
+                    <input type="text" id="whatsappNumber" placeholder="WhatsApp Number" value="+9779800000000">
+                    <input type="text" id="facebookPage" placeholder="Facebook Page" value="fashionpoint">
+                    <input type="text" id="instagramPage" placeholder="Instagram Page" value="fashionpoint">
+                    <input type="text" id="storeEmail" placeholder="Store Email" value="info@fashionpoint.com">
+                    <input type="text" id="storePhone" placeholder="Store Phone" value="+977 1-1234567">
+                    <input type="text" id="storeAddress" placeholder="Store Address" value="123 Fashion Street, Kathmandu">
+                    <div class="admin-buttons">
+                        <button class="btn btn-pink" id="saveContactSettings">Save Contact Details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-tshirt" style="font-size: 32px; color: var(--primary-pink); margin-right: 10px;"></i>
+                <h1 id="storeNameHeader"><span id="storeNameText">Fashion</span><span>Point</span></h1>
+            </div>
+            
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#shop">Shop</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <div class="nav-icons">
+                <a href="#"><i class="fas fa-search"></i></a>
+                <a href="#"><i class="fas fa-shopping-bag"></i></a>
+                <a href="#"><i class="fas fa-user"></i></a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="hero-banner" id="home">
+        <div class="container hero-content">
+            <h2 id="storeTaglineHeader">Your Style, Our Passion</h2>
+            <p id="storeDescriptionText">Discover the latest fashion trends and express your unique style with Fashion Point's exclusive collection.</p>
+            <a href="#shop" class="btn">Shop Now</a>
+        </div>
+    </section>
+
+    <!-- Trending Products -->
+    <section id="shop">
+        <div class="container">
+            <div class="section-title">
+                <h2>Trending Outfits</h2>
+                <p>Explore our most popular styles that are taking the fashion world by storm</p>
+            </div>
+            
+            <div class="products-grid" id="productsContainer">
+                <!-- Products will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>About <span id="aboutStoreName">Fashion Point</span></h2>
+                <p>Fashion that defines you</p>
+            </div>
+            
+            <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+                <p style="font-size: 18px; margin-bottom: 20px;">
+                    At Fashion Point, we believe that clothing is more than just fabric - it's a form of self-expression. 
+                    Our mission is to provide trendy, high-quality fashion that helps you showcase your unique personality.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Get In Touch</h2>
+                <p>We're here to help with any questions about our products</p>
+            </div>
+            
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> <span id="storeAddressText">123 Fashion Street, Kathmandu</span></p>
+                    <p><i class="fas fa-phone-alt"></i> <span id="storePhoneText">+977 1-1234567</span></p>
+                    <p><i class="fas fa-envelope"></i> <span id="storeEmailText">info@fashionpoint.com</span></p>
+                    
+                    <div class="contact-buttons">
+                        <a href="#" class="contact-btn whatsapp-btn" id="whatsappLink" target="_blank">
+                            <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+                        </a>
+                        <a href="#" class="contact-btn messenger-btn" id="messengerLink" target="_blank">
+                            <i class="fab fa-facebook-messenger"></i> Message on Messenger
+                        </a>
+                        <a href="#" class="contact-btn email-btn" id="emailLink">
+                            <i class="fas fa-envelope"></i> Send an Email
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3 style="margin-bottom: 20px; color: var(--primary-pink);">Send us a Message</h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" placeholder="Enter your name">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" placeholder="Enter your email">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" placeholder="Enter your message"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-pink" style="width: 100%;">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="copyright">
+                <p>&copy; 2023 <span id="copyrightStoreName">Fashion Point</span>. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Default Products
+        let products = [
+            {
+                id: 1,
+                name: "Floral Summer Dress",
+                price: 49.99,
+                image: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=300&h=400&fit=crop",
+                category: "dresses",
+                description: "Beautiful floral print summer dress"
+            },
+            {
+                id: 2,
+                name: "Classic Denim Jacket",
+                price: 59.99,
+                image: "https://images.unsplash.com/photo-1544022613-e87ca75a784a?w=300&h=400&fit=crop",
+                category: "outerwear",
+                description: "Timeless denim jacket"
+            }
+        ];
+
+        // Store Settings
+        let storeSettings = {
+            name: "Fashion Point",
+            tagline: "Your Style, Our Passion",
+            description: "Discover the latest fashion trends and express your unique style with Fashion Point's exclusive collection.",
+            whatsapp: "+9779800000000",
+            facebook: "fashionpoint",
+            instagram: "fashionpoint",
+            email: "info@fashionpoint.com",
+            phone: "+977 1-1234567",
+            address: "123 Fashion Street, Kathmandu"
+        };
+
+        // Render Products
+        function renderProducts() {
+            const container = document.getElementById('productsContainer');
+            container.innerHTML = '';
+            
+            products.forEach(product => {
+                const productHTML = `
+                    <div class="product-card">
+                        <div class="product-img">
+                            <img src="${product.image}" alt="${product.name}">
+                        </div>
+                        <div class="product-info">
+                            <h3>${product.name}</h3>
+                            <div class="product-price">$${product.price}</div>
+                            <div class="product-actions">
+                                <a href="#" class="btn">Add to Cart</a>
+                                <a href="#" class="btn btn-pink">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += productHTML;
+            });
+        }
+
+        // Update Store Info
+        function updateStoreInfo() {
+            document.getElementById('storeNameText').textContent = storeSettings.name;
+            document.getElementById('storeTaglineHeader').textContent = storeSettings.tagline;
+            document.getElementById('storeDescriptionText').textContent = storeSettings.description;
+            document.getElementById('aboutStoreName').textContent = storeSettings.name;
+            document.getElementById('storeAddressText').textContent = storeSettings.address;
+            document.getElementById('storePhoneText').textContent = storeSettings.phone;
+            document.getElementById('storeEmailText').textContent = storeSettings.email;
+            document.getElementById('copyrightStoreName').textContent = storeSettings.name;
+            
+            document.getElementById('whatsappLink').href = `https://wa.me/${storeSettings.whatsapp}`;
+            document.getElementById('messengerLink').href = `https://m.me/${storeSettings.facebook}`;
+            document.getElementById('emailLink').href = `mailto:${storeSettings.email}`;
+        }
+
+        // Admin Panel Functionality
+        document.getElementById('adminToggle').addEventListener('click', function() {
+            document.getElementById('adminPanel').style.display = 'block';
+        });
+
+        document.getElementById('closeAdmin').addEventListener('click', function() {
+            document.getElementById('adminPanel').style.display = 'none';
+        });
+
+        // Admin Tabs
+        document.querySelectorAll('.admin-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.admin-content').forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                document.getElementById(`${this.dataset.tab}-tab`).classList.add('active');
+            });
+        });
+
+        // Add Product
+        document.getElementById('addProduct').addEventListener('click', function() {
+            const name = document.getElementById('productName').value;
+            const price = parseFloat(document.getElementById('productPrice').value);
+            const image = document.getElementById('productImage').value;
+            const category = document.getElementById('productCategory').value;
+            const description = document.getElementById('productDescription').value;
+            
+            if (name && price && image && category) {
+                products.push({
+                    id: products.length + 1,
+                    name,
+                    price,
+                    image,
+                    category,
+                    description
+                });
+                renderProducts();
+                localStorage.setItem('fashionPointProducts', JSON.stringify(products));
+                alert('Product added!');
+                
+                // Clear form
+                document.getElementById('productName').value = '';
+                document.getElementById('productPrice').value = '';
+                document.getElementById('productImage').value = '';
+                document.getElementById('productCategory').value = '';
+                document.getElementById('productDescription').value = '';
+            }
+        });
+
+        // Save Settings
+        document.getElementById('saveStoreSettings').addEventListener('click', function() {
+            storeSettings.name = document.getElementById('storeName').value;
+            storeSettings.tagline = document.getElementById('storeTagline').value;
+            storeSettings.description = document.getElementById('storeDescription').value;
+            updateStoreInfo();
+            localStorage.setItem('fashionPointSettings', JSON.stringify(storeSettings));
+            alert('Settings saved!');
+        });
+
+        document.getElementById('saveContactSettings').addEventListener('click', function() {
+            storeSettings.whatsapp = document.getElementById('whatsappNumber').value;
+            storeSettings.facebook = document.getElementById('facebookPage').value;
+            storeSettings.instagram = document.getElementById('instagramPage').value;
+            storeSettings.email = document.getElementById('storeEmail').value;
+            storeSettings.phone = document.getElementById('storePhone').value;
+            storeSettings.address = document.getElementById('storeAddress').value;
+            updateStoreInfo();
+            localStorage.setItem('fashionPointSettings', JSON.stringify(storeSettings));
+            alert('Contact details saved!');
+        });
+
+        // Load data
+        function loadData() {
+            const savedProducts = localStorage.getItem('fashionPointProducts');
+            const savedSettings = localStorage.getItem('fashionPointSettings');
+            
+            if (savedProducts) products = JSON.parse(savedProducts);
+            if (savedSettings) storeSettings = JSON.parse(savedSettings);
+            
+            renderProducts();
+            updateStoreInfo();
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadData();
+            document.querySelector('.mobile-menu').addEventListener('click', function() {
+                document.querySelector('nav').classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>
